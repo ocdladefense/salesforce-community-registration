@@ -1,0 +1,107 @@
+<!-- add implements="forceCommunity:availableForAllPageTypes" to surface the component in community builder -->
+<aura:component controller="ClickpdxRegisterController" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="accountId" type="String" required="false" description="accountId for creating the user. If not specified, it will create a PersonAccount if possible for B2C scenario. Or otherwise if it's in a community, the community's self-registration accountId will be used."/>
+    <aura:attribute name="regConfirmUrl" type="String" required="true"/>
+    <aura:attribute name="regIsExistingUserUrl" type="String" required="false" description="Optional page to send users to who already have accounts" />
+    <aura:attribute name="startUrl" type="String" required="false" description="The url you go to after a successful login" />
+    <aura:attribute name="showError" type="Boolean" required="true" description="" default="false" access="private"/>
+    <aura:attribute name="errorMessage" type="String" required="false" description="" access="private"/>
+    <aura:attribute name="titleLabel" type="String" required="false" default="Professional Title"/>
+    <aura:attribute name="firstnameLabel" type="String" required="false" default="First Name"/>
+    <aura:attribute name="lastnameLabel" type="String" required="false" default="Last Name"/>
+    <aura:attribute name="emailLabel" type="String" required="false" default="Email"/>
+    <aura:attribute name="accountNameLabel" type="String" required="false" default="Account Name"/>
+    
+    <aura:attribute name="passwordLabel" type="String" required="false" default="Create Password"/>
+    <aura:attribute name="confirmPasswordLabel" type="String" required="false" default="Confirm Password"/> 
+    
+    <aura:attribute name="submitButtonLabel" type="String" required="false" default="Sign Up"/>
+    
+    <aura:attribute name="SObjectRecordLimit" type="Integer" required="true" default="5" />
+    <aura:attribute name="SObjectName" type="String" required="true" default="Account" />
+    <aura:attribute name="extraFieldsFieldSet" type="String" required="false" description="A field set name whose fields are desired for user registration"/>
+    <aura:attribute name="extraFields" type="list" required="false" description="A field set name whose fields are desired for user registration"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="expid" type="String" required="false" description="The branding experience ID" />  
+
+    
+    <aura:attribute name="includePasswordField" type="Boolean" required="false" default="false" description="Whether to include password"/> 
+    <aura:attribute name="registrationClasses" type="String" required="false" default=""/>
+    <aura:attribute name="updateNewContactInfo" type="Boolean" required="false" default="false" description=""/> 
+    <aura:attribute name="requireAccountName" type="Boolean" required="false" default="true" description=""/> 
+    <aura:attribute name="createAccountFromAccountName" type="Boolean" required="false" default="false" description=""/> 
+    
+    
+    
+    <!-- The attribute that holds the selected object for the lookup component-->
+    <aura:attribute name="selectedAccount" type="sObject" default="{}"/>
+  
+    <!-- The search keyword that will be used to create a new account if no account is found -->
+    <aura:attribute name="accountSearchWord" type="string"/>
+    
+    
+    
+    <aura:registerevent name="sitePropagatedStartUrl" type="c:setStartUrl"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:dependency resource="c:setStartUrl" type="EVENT"/>
+    <!-- Please uncomment
+    <aura:dependency resource="siteforce:registerQueryEventMap" type="EVENT"/>
+    -->
+    <aura:handler event="c:setStartUrl" action="{!c.setStartUrl}"/> 
+    <aura:handler event="c:setExpId" action="{!c.setExpId}"/>    
+    <aura:dependency resource="c:setExpId" type="EVENT"/>   
+    
+    <div>
+            <aura:renderIf isTrue="{!v.showError}">
+                <div id="error">
+                    <ui:outputRichText value="{!v.errorMessage}"/>
+                </div>
+            </aura:renderIf>
+            <div id="sfdc_username_container" class="sfdc">
+                <lightning:icon iconName="utility:user" alternativeText="First Name" title="First Name" size="x-small" />
+                <ui:inputText value="" aura:id="firstname" placeholder="{!v.firstnameLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc"/>
+            </div>
+
+            <div id="sfdc_nickname_container" class="sfdc">
+                <lightning:icon iconName="utility:user" alternativeText="Last Name" title="Last Name" size="x-small" />
+                <ui:inputText value="" aura:id="lastname" placeholder="{!v.lastnameLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc"/>
+            </div>
+
+            <div id="sfdc_email_container" class="sfdc">
+                <lightning:icon iconName="utility:email" alternativeText="Email" title="Email" size="x-small" />
+                <ui:inputText value="" aura:id="email" placeholder="{!v.emailLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc"/>
+            </div>
+        
+        	<!--<div id="sfdc_account_container" class="sfdc">-->
+                <c:sObjectLookup sObjectAPIName="{!v.SObjectName}" sObjectIconName="standard:account" SObjectRecordLimit="{!v.SObjectRecordLimit}" selectedSObject="{!v.selectedAccount}" SearchKeyword="{!v.accountSearchWord}" searchPlaceholder="{!v.accountNameLabel}"/>
+            <!--</div>-->
+        
+        	<div id="sfdc_title_container" class="sfdc">
+                <lightning:icon iconName="utility:user" alternativeText="Title" title="Title" size="x-small" />
+                <ui:inputText value="" aura:id="title" placeholder="{!v.titleLabel}" keyup="{!c.onKeyUp}" class="input sfdc_usernameinput sfdc"/>
+            </div>
+            
+            <aura:iteration aura:id="extraFields" items="{!v.extraFields}" var="curField" indexVar="index">
+                <div id="sfdc_extrafield_container" class="sfdc">
+                    <lightning:icon iconName="utility:user" alternativeText="Extra Field" title="Extra Field" size="x-small" />
+                    <ui:inputText value="{!curField.value}" aura:id="{!curField.fieldPath}" placeholder="{!curField.label}" keyup="{!c.onKeyUp}" class="input sfdc_extrafieldinput sfdc"/>
+                </div>
+            </aura:iteration>
+
+            <aura:renderIf isTrue="{!v.includePasswordField}">
+                <div id="sfdc_password_container" class="sfdc">
+                    <lightning:icon iconName="utility:lock" alternativeText="Password" title="Password" size="x-small" />
+                    <ui:inputSecret value="" aura:id="password" placeholder="{!v.passwordLabel}" keyup="{!c.onKeyUp}" class="input sfdc_passwordinput sfdc"/>
+                </div>
+    
+                <div id="sfdc_confirm_password_container" class="sfdc">
+                    <lightning:icon iconName="utility:lock" alternativeText="Confirm Password" title="Confirm Password" size="x-small" />
+                    <ui:inputSecret value="" aura:id="confirmPassword" placeholder="{!v.confirmPasswordLabel}" keyup="{!c.onKeyUp}" class="input sfdc_passwordinput sfdc"/>
+                </div>
+            </aura:renderIf>
+
+            <div class="sfdc salesforceIdentityForgotPassword2">
+                <ui:button aura:id="submitButton" label="{!v.submitButtonLabel}" press="{!c.handleSelfRegister}" class="slds-button slds-button--brand loginButton uiButton--none uiButton"/>
+            </div>
+    </div>
+</aura:component>

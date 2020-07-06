@@ -1,0 +1,23 @@
+<design:component label="Clickpdx Registration">
+    <design:attribute name="startUrl" label="Start URL" />
+    <design:attribute name="regConfirmUrl" label="Registration Confirmation URL" default="./CheckPasswordResetEmail"/>
+    <design:attribute name="regIsExistingUserUrl" label="Register Existing User URL" default="./CheckPasswordResetEmail"/>
+    <design:attribute name="firstnameLabel" label="First Name Label" default="First Name"/>
+    <design:attribute name="lastnameLabel" label="Last Name Label" default="Last Name"/>
+    <design:attribute name="emailLabel" label="Email Label" default="Email"/>
+    <design:attribute name="accountNameLabel" label="Company Name Label" default="Account Name"/>
+    <design:attribute name="SObjectRecordLimit" Label="Number of Accounts Displayed" required="true" default="5" />
+    <design:attribute name="titleLabel" label="Title Label" default="Professional Title"/>
+    <design:attribute name="passwordLabel" label="Password" default="Create Password"/>
+    <design:attribute name="confirmPasswordLabel" label="Confirm Password" default="Confirm Password"/>
+    <design:attribute name="submitButtonLabel" label="Submit Button" default="Sign Up"/>
+    
+    <design:attribute name="extraFieldsFieldSet" label="Extra Fields"/>
+    
+    <design:attribute name="registrationClasses" label="Registration Classes" default=""/>
+    <design:attribute name="includePasswordField" label="Include Password" default="false"/>
+    <design:attribute name="updateNewContactInfo" label="Update New Contact Info" default="false"/>
+    <design:attribute name="requireAccountName" label="Require Account Name" default="true"/>
+    <design:attribute name="createAccountFromAccountName" label="Create New Account From Account Name" default="false"/>
+
+</design:component>

@@ -1,0 +1,67 @@
+{
+    "packageDirectories": [
+        {
+            "path": "sfdx-source/sfdx",
+            "default": true
+        },
+        {
+            "path": "sfdx-source/unpackaged",
+            "default": false
+        },
+        {
+            "path": "sfdx-source/SiteRegistration",
+            "default": false,
+            "package": "Site Registration",
+            "versionName": "Summer '20",
+            "versionNumber": "0.1.3.NEXT",
+            "dependencies": [
+                {
+                    "package": "Lightning Library",
+                    "versionNumber": "0.1.3.LATEST"
+                }
+            ]
+        },
+        {
+            "path": "sfdx-source/LightningLibrary",
+            "default": false,
+            "package": "Lightning Library",
+            "versionName": "Summer '20",
+            "versionNumber": "0.1.3.NEXT"
+        },
+        {
+            "path": "sfdx-source/RegistrationHelpers",
+            "package": "Registration Helpers",
+            "versionName": "Summer '20",
+            "versionNumber": "0.1.3.NEXT",
+            "default": false,
+            "dependencies": [
+                {
+                    "package": "Lightning Library",
+                    "versionNumber": "0.1.3.LATEST"
+                },
+                {
+                    "package": "Site Registration",
+                    "versionNumber": "0.1.3.LATEST"
+                }
+            ]
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "48.0",
+    "packageAliases": {
+        "Site Registration": "0Ho3h0000008OeKCAU",
+        "Lightning Library": "0Ho3h0000008OePCAU",
+        "Lightning Library@0.1.0-0": "04t3h000003RB4nAAG",
+        "Registration Helpers": "0Ho3h0000008OeUCAU",
+        "Site Registration@0.1.0-0": "04t3h000003RBXwAAO",
+        "Lightning Library@0.1.1-0": "04t3h000003RBc9AAG",
+        "Site Registration@0.1.1-0": "04t3h000003RBcEAAW",
+        "Lightning Library@0.1.2-0": "04t3h000003RBgRAAW",
+        "Site Registration@0.1.2-0": "04t3h000003RBkeAAG",
+        "Registration Helpers@0.1.2-0": "04t3h000003RBorAAG",
+        "Lightning Library@0.1.3-0": "04t3h000003RwL6AAK",
+        "Site Registration@0.1.3-0": "04t3h000003RwPJAA0",
+        "Registration Helpers@0.1.3-0": "04t3h000003Rwk2AAC"
+    }
+}

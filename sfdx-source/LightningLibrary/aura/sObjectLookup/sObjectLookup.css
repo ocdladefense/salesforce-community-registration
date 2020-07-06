@@ -1,0 +1,29 @@
+/*
+.THIS .leftPaddingClass {
+    padding-left: 2rem;
+}
+*/
+ 
+.THIS .pillSize{	
+ 	width: 100%;
+}
+
+.THIS .slds-pill-container {
+    width: 90% !important;
+    display: inline-block !important;
+    margin-left: 10px !important;
+    padding-top: .33rem !important;
+}
+
+.THIS .clickpdx-input-icon {
+    right: 6%;
+}
+
+
+@media screen and (min-width: 568px) {
+
+    .THIS .clickpdx-input-icon {
+        right: 9%;
+    }
+
+}
