@@ -1,13 +1,6 @@
 # Salesforce Custom Registration
 Lightning components, controllers and classes to process Salesforce Community registrations.
 
-# This file
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#images
-
-## Location
-URL: https://fdli-fdli.cs34.force.com/LightningCommunity/s/
-
-
 ## Package structure
 ### Package 1
 Site Registration - Main registration component and aura controller.
